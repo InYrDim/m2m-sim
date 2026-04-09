@@ -39,7 +39,7 @@ class MyTimetable extends Page implements HasForms, HasTable
 
         return $table
             ->paginated(false)
-            ->query(Timetable::query()->where('teacher_id', $teacher->id))
+            ->query(Timetable::query()->where('teacher_code', $teacher->code))
             ->columns([
                 TextColumn::make('day.name')
                     ->label('Hari'),

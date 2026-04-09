@@ -16,8 +16,8 @@ class TeacherWidgets extends BaseWidget
         $teacher = Teacher::query()->where('user_id', auth()->user()->id)->first();
 
         return [
-            Stat::make('Total Kelas Ajar', Timetable::where('teacher_id', $teacher->id)->distinct()->count('classroom_id')),
-            Stat::make('Total Pertemuan Per Minggu', Timetable::where('teacher_id', $teacher->id)->count()),
+            Stat::make('Total Kelas Ajar', Timetable::where('teacher_code', $teacher->code)->distinct()->count('classroom_id')),
+            Stat::make('Total Pertemuan Per Minggu', Timetable::where('teacher_code', $teacher->code)->count()),
             Stat::make('Tanggal', date('d M Y')),
         ];
     }

@@ -24,7 +24,7 @@ class NotifyTeacherSchedule extends Command
         $today       = $now->dayOfWeekIso; // 1 = Senin
 
         $jadwals = Timetable::with(['teacher', 'lesson', 'timeslot', 'classroom'])
-            ->whereNotNull('teacher_id')
+            ->whereNotNull('teacher_code')
             ->where('day_id', $today)
             ->whereHas('timeslot', function ($q) use ($startWindow, $endWindow) {
                 $q->whereBetween('time_start', [

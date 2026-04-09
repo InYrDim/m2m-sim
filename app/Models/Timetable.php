@@ -19,7 +19,7 @@ class Timetable extends Model
         'timeslot_id',
         'classroom_id',
         'lesson_id',
-        'teacher_id',
+        'teacher_code',
     ];
 
     public function day()
@@ -44,6 +44,6 @@ class Timetable extends Model
 
     public function teacher()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsTo(Teacher::class, 'teacher_code', 'code');
     }
 }

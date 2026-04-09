@@ -13,7 +13,9 @@ class TimeslotSeeder extends Seeder
      */
     public function run(): void
     {
-        Timeslot::insert([
+        $days = \App\Models\Day::all();
+
+        $timeslots = [
             ['time_start' => '06:30', 'time_end' => "07:00", 'full_time' => '06:30-07:00'],
             ['time_start' => '06:30', 'time_end' => "07:15", 'full_time' => '06:30-07:15'],
             ['time_start' => '07:00', 'time_end' => "07:40", 'full_time' => '07:00-07:40'],
@@ -55,6 +57,13 @@ class TimeslotSeeder extends Seeder
             ['time_start' => '15:30', 'time_end' => "16:00", 'full_time' => '15:30-16:00'],
             ['time_start' => '15:50', 'time_end' => "16:30", 'full_time' => '15:50-16:30'],
             ['time_start' => '16:00', 'time_end' => "16:30", 'full_time' => '16:00-16:30'],
-        ]);
+        ];
+
+        foreach ($timeslots as $data) {
+            $timeslot = Timeslot::create($data);
+            foreach ($days as $day) {
+                $day->timeslots()->attach($timeslot->id);
+            }
+        }
     }
 }

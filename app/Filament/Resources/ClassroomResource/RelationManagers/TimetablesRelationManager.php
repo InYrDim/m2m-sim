@@ -55,9 +55,9 @@ class TimetablesRelationManager extends RelationManager
                         ->relationship('lesson', 'name')
                         ->native(false)
                         ->live()
-                        ->afterStateUpdated(fn (callable $set) => $set('teacher_id', null))
+                        ->afterStateUpdated(fn (callable $set) => $set('teacher_code', null))
                         ->searchable(),
-                    Forms\Components\Select::make('teacher_id')
+                    Forms\Components\Select::make('teacher_code')
                         ->label('Guru')
                         ->native(false)
                         ->options(function (callable $get) {
@@ -66,7 +66,7 @@ class TimetablesRelationManager extends RelationManager
                                 return [];
                             }
 
-                            return $lesson->teachers->pluck('name', 'id');
+                            return $lesson->teachers->pluck('name', 'code');
                         })
                         ->visible(fn (Get $get) => $get('lesson_id') != null)
                         ->searchable(),
