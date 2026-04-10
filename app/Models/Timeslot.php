@@ -22,7 +22,7 @@ class Timeslot extends Model
 
     public function days()
     {
-        return $this->belongsToMany(Day::class, 'day_time')->withTimestamps();
+        return $this->belongsToMany(Day::class, 'day_time')->withPivot('jam_ke')->withTimestamps();
     }
 
     public function timetables()

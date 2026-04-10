@@ -21,10 +21,10 @@ class TimeslotsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                // Forms\Components\TextInput::make('full_time')
-                //     ->label('Waktu')
-                //     ->required()
-                //     ->maxLength(255),
+                Forms\Components\TextInput::make('jam_ke')
+                    ->label('Jam Ke')
+                    ->numeric()
+                    ->required(),
             ]);
     }
 
@@ -33,6 +33,9 @@ class TimeslotsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('full_time')
             ->columns([
+                Tables\Columns\TextColumn::make('jam_ke')
+                    ->label('Jam Ke')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('full_time')
                     ->label('Waktu'),
             ])
@@ -40,12 +43,18 @@ class TimeslotsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\AttachAction::make(),
+                Tables\Actions\AttachAction::make()
+                    ->form(fn (Tables\Actions\AttachAction $action): array => [
+                        $action->getRecordSelect(),
+                        Forms\Components\TextInput::make('jam_ke')
+                            ->label('Jam Ke')
+                            ->numeric()
+                            ->required(),
+                    ]),
             ])
             ->actions([
+                Tables\Actions\EditAction::make(),
                 Tables\Actions\DetachAction::make(),
-                // Tables\Actions\EditAction::make(),
-                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
