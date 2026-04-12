@@ -60,9 +60,15 @@ class TimeslotSeeder extends Seeder
         ];
 
         foreach ($timeslots as $data) {
-            $timeslot = Timeslot::create($data);
+            $timeslot = Timeslot::firstOrCreate([
+                'time_start' => $data['time_start'],
+                'time_end' => $data['time_end']
+            ], [
+                'full_time' => $data['full_time']
+            ]);
+            
             foreach ($days as $day) {
-                $day->timeslots()->attach($timeslot->id);
+                $day->timeslots()->syncWithoutDetaching([$timeslot->id]);
             }
         }
     }

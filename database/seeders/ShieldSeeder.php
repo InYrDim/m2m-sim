@@ -25,32 +25,44 @@ class ShieldSeeder extends Seeder
         static::makeDirectPermissions($directPermissions);
 
         // Create super administrator
-        $superAdministratorUser = User::factory()->create([
-            'name' => 'Super Administrator',
-            'email' => 'superadmin@man2kotamakassar.sch.id',
-            'password' => 'man2kotamakassar'
-        ]);
+        $superAdministratorUser = User::firstOrCreate(
+            ['email' => 'superadmin@man2kotamakassar.sch.id'],
+            [
+                'name' => 'Super Administrator',
+                'password' => 'man2kotamakassar',
+                'email_verified_at' => now(),
+            ]
+        );
 
         // Create administrator
-        $administratorUser = User::factory()->create([
-            'name' => 'Administrator',
-            'email' => 'admin@man2kotamakassar.sch.id',
-            'password' => 'man2kotamakassar'
-        ]);
+        $administratorUser = User::firstOrCreate(
+            ['email' => 'admin@man2kotamakassar.sch.id'],
+            [
+                'name' => 'Administrator',
+                'password' => 'man2kotamakassar',
+                'email_verified_at' => now(),
+            ]
+        );
 
         // Create student
-        $studentUser = User::factory()->create([
-            'name' => 'Siswa',
-            'email' => 'siswa@man2kotamakassar.sch.id',
-            'password' => 'man2kotamakassar'
-        ]);
+        $studentUser = User::firstOrCreate(
+            ['email' => 'siswa@man2kotamakassar.sch.id'],
+            [
+                'name' => 'Siswa',
+                'password' => 'man2kotamakassar',
+                'email_verified_at' => now(),
+            ]
+        );
 
         // Create teacher
-        $teacherUser = User::factory()->create([
-            'name' => 'Dewi Rahmah',
-            'email' => 'dewirahmah@man2kotamakassar.sch.id',
-            'password' => 'man2kotamakassar'
-        ]);
+        $teacherUser = User::firstOrCreate(
+            ['email' => 'dewirahmah@man2kotamakassar.sch.id'],
+            [
+                'name' => 'Dewi Rahmah',
+                'password' => 'man2kotamakassar',
+                'email_verified_at' => now(),
+            ]
+        );
 
         // Assign super administrator user to super_admin role
         $superAdministratorUser->assignRole('super_admin');

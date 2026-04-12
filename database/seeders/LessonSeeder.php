@@ -13,7 +13,7 @@ class LessonSeeder extends Seeder
      */
     public function run(): void
     {
-        Lesson::insert([
+        $lessons = [
             ['code' => 'A', 'name' => "Qur'an Hadits"],
             ['code' => 'B', 'name' => 'Aqidah Akhlak'],
             ['code' => 'C', 'name' => 'Fiqhi'],
@@ -59,8 +59,8 @@ class LessonSeeder extends Seeder
             ['code' => 'NC', 'name' => 'Ekonomi CLub'],
             ['code' => 'SC', 'name' => 'Jepang Club'],
             ['code' => 'TC', 'name' => 'Jerman Club'],
-            ['code' => 'TIK', 'name' => 'Robotik Club'],
             ['code' => 'QC', 'name' => 'Seni Budaya Club'],
+            ['code' => 'TIK', 'name' => 'Robotik Club'],
 
             ['code' => '1', 'name' => 'Upacara'],
             ['code' => '2', 'name' => 'Istirahat'],
@@ -70,6 +70,13 @@ class LessonSeeder extends Seeder
             ['code' => '6', 'name' => "Sima'an/Penguatan Bahasa"],
             ['code' => '7', 'name' => "BK/Wali Kelas"],
             ['code' => '8', 'name' => "Jum'at Bersih/Senam"],
-        ]);
+        ];
+
+        foreach ($lessons as $lesson) {
+            Lesson::updateOrCreate(
+                ['code' => $lesson['code']],
+                ['name' => $lesson['name']]
+            );
+        }
     }
 }

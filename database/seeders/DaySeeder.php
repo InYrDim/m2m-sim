@@ -18,7 +18,7 @@ class DaySeeder extends Seeder
         ];
 
         foreach ($days as $day) {
-            Day::insert([
+            Day::firstOrCreate([
                 'name' => $day,
             ]);
         }

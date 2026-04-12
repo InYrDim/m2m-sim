@@ -21,9 +21,10 @@ class ClassroomSeeder extends Seeder
 
         foreach ($levels as $level) {
             foreach ($numbers as $number) {
-                Classroom::insert([
-                    'level' => $level,
+                Classroom::firstOrCreate([
                     'name' => strtoupper($level) . ' ' . $number,
+                ], [
+                    'level' => $level,
                 ]);
             }
         }
