@@ -133,7 +133,6 @@ class TimetableResource extends Resource
             ->filters([
                 SelectFilter::make('classroom')
                     ->relationship('classroom', 'name')
-                    ->default(1)
                     ->label('Kelas')
                     ->searchable()
                     ->preload()
