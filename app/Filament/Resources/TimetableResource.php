@@ -97,11 +97,17 @@ class TimetableResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => 
+                $query->join('day_time', function ($join) {
+                    $join->on('timetables.day_id', '=', 'day_time.day_id')
+                         ->on('timetables.timeslot_id', '=', 'day_time.timeslot_id');
+                })->select('timetables.*', 'day_time.jam_ke')
+            )
             ->paginated(false)
             ->columns([
                 TextColumn::make('day.name')
                     ->label('Hari'),
-                TextColumn::make('timeslot.pivot.jam_ke')
+                TextColumn::make('jam_ke')
                     ->label('Jam Ke')
                     ->sortable(),
                 TextColumn::make('timeslot.full_time')
