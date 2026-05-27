@@ -25,8 +25,8 @@ services:
     environment:
       APP_ENV: ${APP_ENV:-local}
       APP_KEY: ${APP_KEY}
-      APP_URL: http://localhost
-      ASSET_URL: http://localhost
+      APP_URL: https://test-sim-m2m.inyrdim.my.id
+      ASSET_URL: https://test-sim-m2m.inyrdim.my.id
       APP_DEBUG: ${APP_DEBUG:-true}
       DB_HOST: db
       DB_PORT: 3306
@@ -36,6 +36,12 @@ services:
     depends_on:
       db:
         condition: service_healthy
-
+    networks:
+      - cloudflare-bridge
+      - default
 volumes:
   db_data:
+
+networks:
+  cloudflare-bridge:
+    external: true
