@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # Laravel App (PHP-FPM) - Pulls pre-built image
   app:
-    image: yourdockerhubusername/m2m-sim:latest
+    image: iyedeh/m2m-sim-app:latest
     container_name: m2m-sim-app
     restart: unless-stopped
     working_dir: /var/www/html
