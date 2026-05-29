@@ -150,7 +150,7 @@ class TimetableResource extends Resource
                     ->form([
                         Forms\Components\FileUpload::make('file')
                             ->label('CSV File')
-                            ->acceptedFileTypes(['text/csv', 'text/plain', 'application/csv'])
+                            ->acceptedFileTypes(['text/csv', 'text/plain', 'application/csv', 'application/vnd.ms-excel'])
                             ->required()
                             ->disk('local')
                             ->directory('temp'),

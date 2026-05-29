@@ -35,7 +35,7 @@ class ListTeachers extends ListRecords
                         ->required()
                         ->disk('local')
                         ->directory('temp-imports')
-                        ->acceptedFileTypes(['text/csv', 'application/csv']),
+                        ->acceptedFileTypes(['text/csv', 'text/plain', 'application/csv', 'application/vnd.ms-excel']),
                 ])
                 ->action(function (array $data, TeacherImportService $service) {
                     $filePath = storage_path('app/' . $data['csv_file']);
