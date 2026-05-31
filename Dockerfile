@@ -1,4 +1,4 @@
-FROM php:8.2-fpm-bookworm AS base
+FROM php:8.4-fpm-bookworm AS base
 
 RUN apt-get update && apt-get install -y \
     nginx \
@@ -14,13 +14,13 @@ RUN apt-get update && apt-get install -y \
     git \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
-        pdo_mysql \
-        mbstring \
-        gd \
-        zip \
-        intl \
-        bcmath \
-        exif \
+    pdo_mysql \
+    mbstring \
+    gd \
+    zip \
+    intl \
+    bcmath \
+    exif \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
