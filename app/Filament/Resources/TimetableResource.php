@@ -142,7 +142,25 @@ class TimetableResource extends Resource
                 Tables\Actions\DeleteAction::make(),
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Action::make('download_template')
+                    ->label('Template CSV')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->color('info')
+                    ->action(function () {
+                        $headers = ['hari', 'jam_ke', 'kelas', 'id_pelajaran_guru'];
+                        $example = ['1', '1', 'X12', 'N.66'];
+                        
+                        $callback = function() use ($headers, $example) {
+                            $file = fopen('php://output', 'w');
+                            fputcsv($file, $headers);
+                            fputcsv($file, $example);
+                            fclose($file);
+                        };
+
+                        return response()->streamDownload($callback, 'template_jadwal.csv', [
+                            'Content-Type' => 'text/csv',
+                        ]);
+                    }),
                 Action::make('import')
                     ->label('Import CSV')
                     ->color('success')
@@ -180,25 +198,7 @@ class TimetableResource extends Resource
                         // Cleanup
                         Storage::disk('local')->delete($data['file']);
                     }),
-                Action::make('download_template')
-                    ->label('Template CSV')
-                    ->icon('heroicon-o-document-arrow-down')
-                    ->color('gray')
-                    ->action(function () {
-                        $headers = ['hari', 'jam_ke', 'kelas', 'id_pelajaran_guru'];
-                        $example = ['1', '1', 'X12', 'N.66'];
-                        
-                        $callback = function() use ($headers, $example) {
-                            $file = fopen('php://output', 'w');
-                            fputcsv($file, $headers);
-                            fputcsv($file, $example);
-                            fclose($file);
-                        };
-
-                        return response()->streamDownload($callback, 'template_jadwal.csv', [
-                            'Content-Type' => 'text/csv',
-                        ]);
-                    })
+                Tables\Actions\CreateAction::make(),
             ])
             ->bulkActions([
                 // ExportBulkAction::make() 
