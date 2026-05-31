@@ -37,7 +37,11 @@ RUN sed -i 's/fastcgi_pass app:9000/fastcgi_pass 127.0.0.1:9000/' docker/nginx/d
     && cp docker/nginx/default.conf /etc/nginx/sites-enabled/default \
     && mkdir -p /var/run/php \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && cp docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+    && cp docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf \
+    && rm -f /var/www/html/bootstrap/cache/config.php \
+          /var/www/html/bootstrap/cache/packages.php \
+          /var/www/html/bootstrap/cache/routes-v7.php \
+          /var/www/html/bootstrap/cache/services.php
 
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
