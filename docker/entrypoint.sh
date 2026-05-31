@@ -6,6 +6,8 @@ if [ ! -f /var/www/html/storage/framework/ready ]; then
 
     php artisan package:discover --ansi 2>/dev/null || true
 
+    php artisan filament:assets --ansi 2>/dev/null || true
+
     if [ "$APP_ENV" != "local" ]; then
         php artisan config:cache
         php artisan route:cache
